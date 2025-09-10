@@ -1,18 +1,40 @@
 import React, { useState } from "react";
 import axiosInstance from "../../API/api";
+import {useNavigate} from "react-router-dom";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate()
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      const response = await axiosInstance.post('User/login/', {
-        username: username,
-        password: password
+      const response = await axiosInstance.post("User/login/", {
+        username,
+        password,
       });
-    } catch (error) {
-      console.log(error.response.data);
+
+      const { access, refresh } = response.data;
+
+      if (access && refresh) {
+        localStorage.setItem("access_token", access);
+        localStorage.setItem("refresh_token", refresh);
+
+        // Set default auth header for future requests
+        axiosInstance.defaults.headers["Authorization"] = "Bearer " + access;
+
+        navigate("/profile");
+      } else {
+        setError("Login failed. No token received.");
+      }
+    } catch (err) {
+      console.error("Login error:", err.response || err.message);
+      if (err.response?.status === 401) {
+        setError("Invalid username or password");
+      } else {
+        setError("An error occurred. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
