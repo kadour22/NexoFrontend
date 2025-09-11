@@ -2,19 +2,20 @@ import React , {useState,useEffect} from 'react'
 import axiosInstance from '../../API/api'
 import Post from './Post'
 import { Heart, MessageCircle, Repeat2 } from "lucide-react";
-
+import {Link, useParams} from 'react-router-dom'
 // posts : list 
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [activeuser,setActiveUser] = useState(null);
+  // Fetch posts data ✅
   useEffect(()=> {
     const posts_list = async () =>{
       try{
         const response = await axiosInstance.get('Post/posts/');
         setPosts(response.data);
-        console.log(response.data)
       }catch(error){
         setError(error);
       }
@@ -22,10 +23,19 @@ const PostList = () => {
     posts_list();
     
   },[])
+  const LikeOrDislike = async (id) => {
+    try{
+      const response = await axiosInstance.post(`Post/like_or_dislike/${id}`);
+      console.log(response.data)
+      setActiveUser(response.data.user_id)
+        }catch(error){
+          console.log(error)
+        }
+    }
   return (
     <div>
-      {posts.map((post) => (
-         <div key={post.id} className="w-full max-w-2xl mx-auto bg-black text-white border-b border-gray-800 px-4 py-6">
+      {posts.map((post,index) => (
+         <div key={index} className="w-full max-w-2xl mx-auto bg-black text-white border-b border-gray-800 px-4 py-6">
       {/* Author Info */}
       <div className="flex items-center gap-3">
         <img
@@ -63,14 +73,14 @@ const PostList = () => {
       
       {/* Actions */}
       <div className="flex justify-between items-center mt-4 text-gray-400 text-sm">
-        <button className="flex items-center gap-2 hover:text-red-500 transition">
+        <button onClick={()=>LikeOrDislike(post.id)} className="flex items-center gap-2 hover:text-red-500 transition">
                   {Array.isArray(post.likes) && post.likes.includes(post.author.id) ? (
                     <Heart size={18} className="text-red-500" />
                   ) : (
                     <Heart size={18} />
                   )}{" "}
                   {post.likes_count}
-                </button>
+        </button>
         <button className="flex items-center gap-2 hover:text-sky-500 transition">
           <MessageCircle size={18} /> 348
         </button>
