@@ -1,7 +1,9 @@
 import React,{useState,useEffect} from 'react'
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Edit2Icon } from "lucide-react";
 import {Heart,MessageCircle,Repeat2} from "lucide-react";
 import axiosInstance from '../../API/api';
+import { Link } from 'react-router-dom';
+import Post from '../Posts/Post';
 const Profile = () => {
       const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,7 @@ const Profile = () => {
       try {
         const response = await axiosInstance.get("Profile/profile/"); // adjust URL
         setProfile(response.data);
-        console.log(response.data)
+        console.log(response.data.profile)
       } catch (err) {
         setError("Failed to load profile");
       } finally {
@@ -22,7 +24,7 @@ const Profile = () => {
 
     fetchProfile();
   }, []);
-
+  
   if (loading) return <p className="text-center text-gray-400">Loading profile...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
@@ -55,7 +57,11 @@ const Profile = () => {
         <p className="text-gray-400 text-sm sm:text-base">@{profile?.user.username}</p>
         <p className="text-gray-400 text-sm sm:text-base">@{profile?.bio}</p>
       </div>
-
+        <div>
+            <Link to="/update" className="text-blue-500 text-sm sm:text-base px-4 sm:px-8 mt-2 inline-block">
+            Edit profile</Link>
+            <Edit2Icon className="inline-block ml-2" size={16}/>
+        </div>
       {/* Stats */}
       <div className="flex flex-wrap justify-around sm:justify-start sm:gap-12 px-4 sm:px-8 mt-6 border-t border-gray-700 py-4">
         <div className="text-center sm:text-left">
@@ -75,6 +81,7 @@ const Profile = () => {
           <p className="text-gray-400 text-sm">Collections</p>
         </div>
       </div>
+      {profile?.user.posts?.map((post) => (<Post key={post.id} post={post} profile_image={profile?.profile_image} />))}
     </div>
 
     </div>
