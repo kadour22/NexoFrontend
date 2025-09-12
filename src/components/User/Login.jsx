@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axiosInstance from "../../API/api";
 import {useNavigate} from "react-router-dom";
 export default function Login() {
@@ -37,7 +37,12 @@ export default function Login() {
       setLoading(false);
     }
   };
-
+  useEffect(()=>{
+    const token = localStorage.getItem("access_token");
+    if (token){
+      navigate("/profile")
+    }
+  },[])
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg">

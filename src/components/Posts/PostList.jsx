@@ -58,7 +58,9 @@ const PostList = () => {
 
       {/* Post Text */}
       <div className="mt-3 text-gray-200 text-sm sm:text-base">
-        <h2 className=''>{post.title}</h2>
+        <Link to={`/posts/post/${post.id}`}>
+          <h2 className='' style={{color:"white",textDecoration:"none"}}>{post.title}</h2>
+        </Link>
         <p>{post.content}</p>
       </div>
       <br />

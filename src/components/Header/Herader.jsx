@@ -1,5 +1,5 @@
 import React from 'react'
-import { Mail, Bell , Settings,User } from "lucide-react";
+import { Mail, Bell , Settings,User,House } from "lucide-react";
 import { Link } from 'react-router-dom';
 const Header = () => {
   return (
@@ -31,6 +31,9 @@ const Header = () => {
         <Link to="/profile" className="text-sky-500 hover:text-yellow-300 transition">
             <User size={20} />
         </Link>
+        <Link to="/posts/posts-list/" className="text-sky-500 hover:text-yellow-300 transition">
+            <House size={20} />
+        </Link>
         {/* Messages Link */}
         <Link to="/messages" className="text-sky-500 hover:text-sky-400 transition">
             <Mail size={20} />
@@ -40,7 +43,7 @@ const Header = () => {
             <Bell size={20} />
         </Link>
         
-        <Link to="/notifications" className="text-sky-500 hover:text-yellow-300 transition">
+        <Link to="/settings" className="text-sky-500 hover:text-yellow-300 transition">
             <Settings size={20} />
         </Link>
         </div>

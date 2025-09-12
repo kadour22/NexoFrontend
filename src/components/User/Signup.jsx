@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import axios from 'axios'
+import UpdateProfile from '../Profile/UpdateProfile';
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");

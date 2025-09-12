@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../../API/api"; // your axios instance with baseURL + JWT token
+import axiosInstance from "../../API/api";
 import { useNavigate } from "react-router-dom";
+
 const UpdateProfile = () => {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     bio: "",
-    image: null, // file upload
+    image: null,
+    cover: null,
   });
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -16,26 +19,30 @@ const UpdateProfile = () => {
   // Fetch current profile
   useEffect(() => {
     axiosInstance
-      .get("Profile/profile/") // assuming you already have a GET endpoint
+      .get("Profile/profile/")
       .then((res) => {
-        setFormData({
+        setFormData((prev) => ({
+          ...prev,
           first_name: res.data.user.first_name || "",
           last_name: res.data.user.last_name || "",
           bio: res.data.bio || "",
-          image: null,
-        });
+        }));
       })
       .catch((err) => console.error(err));
   }, []);
 
-  // Handle input changes
+  // Handle text inputs
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle image file upload
+  // Handle file inputs
   const handleFileChange = (e) => {
     setFormData({ ...formData, image: e.target.files[0] });
+  };
+
+  const handleCover = (e) => {
+    setFormData({ ...formData, cover: e.target.files[0] });
   };
 
   // Submit form
@@ -49,8 +56,12 @@ const UpdateProfile = () => {
     data.append("first_name", formData.first_name);
     data.append("last_name", formData.last_name);
     data.append("bio", formData.bio);
+
     if (formData.image) {
-      data.append("image", formData.image);
+      data.append("profile_image", formData.image); // Django field name
+    }
+    if (formData.cover) {
+      data.append("profile_cover", formData.cover); // Django field name
     }
 
     try {
@@ -58,7 +69,7 @@ const UpdateProfile = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setSuccess("Profile updated successfully ✅");
-        navigate("/profile");
+      navigate("/profile");
     } catch (err) {
       setError("Failed to update profile ❌");
     } finally {
@@ -67,10 +78,11 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gray-900 text-white rounded-xl shadow-lg">
-      <h2 className="text-xl font-bold mb-4">Update Profile</h2>
+    <div className="max-w-md mx-auto p-4 bg-black text-white rounded-xl shadow-lg">
+      <h2 className="font-bold mb-4">Update Profile Info</h2>
 
       <form onSubmit={handleSubmit} className="space-y-3">
+        {/* Text inputs */}
         <input
           type="text"
           name="first_name"
@@ -94,13 +106,34 @@ const UpdateProfile = () => {
           onChange={handleChange}
           className="w-full p-2 rounded bg-gray-800 border border-gray-700"
         />
+
+        {/* Profile Image Upload */}
+        <p className="mt-2">Profile Image:</p>
         <input
           type="file"
-          name="image"
+          accept="image/*"
           onChange={handleFileChange}
-          className="w-full"
+          className="block w-full text-sm text-gray-400 
+                     file:mr-4 file:py-2 file:px-4
+                     file:rounded-full file:border-0
+                     file:text-sm file:font-semibold
+                     file:bg-indigo-600 file:text-white
+                     hover:file:bg-indigo-500"
+        />
+        <p className="mt-2">Cover Image:</p>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleCover}
+          className="block w-full text-sm text-gray-400 
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+              file:bg-indigo-600 file:text-white
+              hover:file:bg-indigo-500"
         />
 
+        {/* Submit */}
         <button
           type="submit"
           disabled={loading}

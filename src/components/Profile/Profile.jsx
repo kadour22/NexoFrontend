@@ -14,7 +14,6 @@ const Profile = () => {
       try {
         const response = await axiosInstance.get("Profile/profile/"); // adjust URL
         setProfile(response.data);
-        console.log(response.data.profile)
       } catch (err) {
         setError("Failed to load profile");
       } finally {
@@ -51,11 +50,11 @@ const Profile = () => {
       {/* Info */}
       <div className="mt-16 px-4 sm:px-8">
         <div className="flex items-center gap-2">
-          <h1 className="text-xl sm:text-2xl font-bold">{profile?.user.first_name} {profile?.user.last_name}</h1>
+          <h4 className="text-xl sm:text-2xl font-bold">{profile?.user.first_name} {profile?.user.last_name}</h4>
           <CheckCircle size={20} className="text-sky-500" />
         </div>
-        <p className="text-gray-400 text-sm sm:text-base">@{profile?.user.username}</p>
-        <p className="text-gray-400 text-sm sm:text-base">@{profile?.bio}</p>
+        <p className="text-gray-400 text-sm sm:text-base">Username : @{profile?.user.username}</p>
+        <p className="text-gray-400 text-sm sm:text-base">Bio : {profile?.bio}</p>
       </div>
         <div>
             <Link to="/update" className="text-blue-500 text-sm sm:text-base px-4 sm:px-8 mt-2 inline-block">
