@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { CheckCircle, Edit2Icon } from "lucide-react";
+import { BadgePlus, CheckCircle, Edit2Icon } from "lucide-react";
 import {Heart,MessageCircle,Repeat2} from "lucide-react";
 import axiosInstance from '../../API/api';
 import { Link } from 'react-router-dom';
@@ -57,9 +57,10 @@ const Profile = () => {
         <p className="text-gray-400 text-sm sm:text-base">Bio : {profile?.bio}</p>
       </div>
         <div>
-            <Link to="/update" className="text-blue-500 text-sm sm:text-base px-4 sm:px-8 mt-2 inline-block">
-            Edit profile</Link>
-            <Edit2Icon className="inline-block ml-2" size={16}/>
+            <Link to="/posts/create/" className="text-blue-500 text-sm sm:text-base px-4 sm:px-8 mt-2 inline-block">
+            <BadgePlus className="inline-block ml-2" size={16}/>
+              Add Post
+            </Link>
         </div>
       {/* Stats */}
       <div className="flex flex-wrap justify-around sm:justify-start sm:gap-12 px-4 sm:px-8 mt-6 border-t border-gray-700 py-4">

@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import UpdateProfile from '../Profile/UpdateProfile';
+import { Link } from 'react-router-dom';
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -132,9 +133,9 @@ const Signup = () => {
         {/* Extra Links */}
         <p className="text-sm text-center text-gray-500">
           Don’t have an account?{" "}
-          <a href="/Login" className="text-blue-600 hover:underline">
+          <Link to="/" className="text-blue-600 hover:underline">
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>

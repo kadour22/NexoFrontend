@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../API/api";
 import { useNavigate } from "react-router-dom";
+import ChangePassword from "../Settings/ChangePassword";
 
 const UpdateProfile = () => {
   const [formData, setFormData] = useState({
@@ -58,10 +59,10 @@ const UpdateProfile = () => {
     data.append("bio", formData.bio);
 
     if (formData.image) {
-      data.append("profile_image", formData.image); // Django field name
+      data.append("profile_image", formData.image);
     }
     if (formData.cover) {
-      data.append("profile_cover", formData.cover); // Django field name
+      data.append("profile_cover", formData.cover);
     }
 
     try {
@@ -78,6 +79,7 @@ const UpdateProfile = () => {
   };
 
   return (
+    <>
     <div className="max-w-md mx-auto p-4 bg-black text-white rounded-xl shadow-lg">
       <h2 className="font-bold mb-4">Update Profile Info</h2>
 
@@ -109,43 +111,47 @@ const UpdateProfile = () => {
 
         {/* Profile Image Upload */}
         <p className="mt-2">Profile Image:</p>
-        <input
+        <div>
+          <input
           type="file"
           accept="image/*"
           onChange={handleFileChange}
-          className="block w-full text-sm text-gray-400 
-                     file:mr-4 file:py-2 file:px-4
-                     file:rounded-full file:border-0
-                     file:text-sm file:font-semibold
-                     file:bg-indigo-600 file:text-white
-                     hover:file:bg-indigo-500"
+          className="w-full max-w-sm px-4 py-2 rounded-lg text-white font-semibold 
+          bg-gradient-to-r from-purple-500 to-pink-500 
+          hover:from-purple-600 hover:to-pink-600 
+          focus:outline-none focus:ring-2 focus:ring-pink-300"
         />
+
         <p className="mt-2">Cover Image:</p>
         <input
           type="file"
           accept="image/*"
           onChange={handleCover}
-          className="block w-full text-sm text-gray-400 
-                file:mr-4 file:py-2 file:px-4
-                file:rounded-full file:border-0
-                file:text-sm file:font-semibold
-              file:bg-indigo-600 file:text-white
-              hover:file:bg-indigo-500"
+          className="w-full max-w-sm px-4 py-2 rounded-lg text-white font-semibold 
+          bg-gradient-to-r from-purple-500 to-pink-500 
+          hover:from-purple-600 hover:to-pink-600 
+          focus:outline-none focus:ring-2 focus:ring-pink-300"
         />
-
+        </div>
+        <br />
         {/* Submit */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full p-2 rounded bg-blue-600 hover:bg-blue-700 transition"
+          className="w-full px-6 py-2 rounded-lg text-white font-semibold 
+          bg-gradient-to-r from-purple-500 to-pink-500 
+          hover:from-purple-600 hover:to-pink-600 
+          focus:outline-none focus:ring-2 focus:ring-pink-300"
         >
-          {loading ? "Updating..." : "Update Profile"}
+          {loading ? "Updating... ♻️" : "Update Profile"}
         </button>
       </form>
 
       {success && <p className="text-green-400 mt-2">{success}</p>}
       {error && <p className="text-red-400 mt-2">{error}</p>}
+      
     </div>
+  </>
   );
 };
 

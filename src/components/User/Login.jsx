@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../API/api";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
+
+  useEffect(()=>{
+    const token = localStorage.getItem("access_token");
+    if (token){
+      navigate("/profile")
+    }
+    else{
+      navigate("/")
+    }
+  },[navigate])
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -37,12 +48,6 @@ export default function Login() {
       setLoading(false);
     }
   };
-  useEffect(()=>{
-    const token = localStorage.getItem("access_token");
-    if (token){
-      navigate("/profile")
-    }
-  },[])
   return (
     <div className="flex items-center justify-center min-h-screen bg-black">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg">
@@ -94,9 +99,9 @@ export default function Login() {
         {/* Extra Links */}
         <p className="text-sm text-center text-gray-500">
           Don’t have an account?{" "}
-          <a href="/" className="text-blue-600 hover:underline">
+          <Link to="/signup" className="text-blue-600 hover:underline">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

@@ -3,6 +3,7 @@ import axiosInstance from '../../API/api'
 import Post from './Post'
 import { Heart, MessageCircle, Repeat2 } from "lucide-react";
 import {Link, useParams} from 'react-router-dom'
+import CreatePost from './CreatePost';
 // posts : list 
 
 const PostList = () => {
@@ -33,6 +34,7 @@ const PostList = () => {
         }
     }
   return (
+    <>
     <div>
       {posts.map((post,index) => (
          <div key={index} className="w-full max-w-2xl mx-auto bg-black text-white border-b border-gray-800 px-4 py-6">
@@ -93,6 +95,7 @@ const PostList = () => {
     </div>
       ))}
     </div>
+  </>
   )
 }
 
