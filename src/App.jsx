@@ -17,7 +17,7 @@ import Settings from './components/Settings/Settings'
 import {BrowserRouter as Router, Route, Routes , useNavigate
 } from 'react-router-dom' 
 import CreatePost from './components/Posts/CreatePost'
-import Notificatoins from './components/Notifcatons/Notificatoins'
+import Notification from './components/Notifcatons/Notifications'
 
 const App = () => {
 
@@ -38,7 +38,7 @@ const App = () => {
           <Route path="/posts/post/:id/" element={<PostDetail />} />
           <Route path="/posts/like_or_dislike/:id" element={<LikePost />} />
 
-          <Route path="/notifications/" element={<Notificatoins />} />
+          <Route path="/notifications/" element={<Notification />} />
         </Routes>
     </Router>
     </div>

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import axiosInstance from "../../API/api"; // your axios instance with JWT token
-
+import axiosInstance from "../../API/api"; 
+import {useNavigate} from 'react-router-dom'
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
-
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,6 +23,7 @@ const CreatePost = () => {
           "Content-Type": "multipart/form-data", // 👈 Required
         },
       });
+      navigate('/posts/posts-list/');
       console.log("Post created:", response.data);
     } catch (error) {
       console.error("Error creating post:", error);
