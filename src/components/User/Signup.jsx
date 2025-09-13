@@ -20,12 +20,12 @@ const Signup = () => {
     };
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/User/register/",
+        "https://nexobackend-7pil.onrender.com/User/register/",
         data
       );
       console.log(response.data);
       setSuccess("Registration successful! You can now log in.");
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.error(err);
       setError("Registration failed. Please try again.");
