@@ -12,7 +12,7 @@ const Post = ({ post, profile_image }) => {
 
   // Safely use profile_image prop passed from Profile
   const authorImage = profile_image
-    ? `http://127.0.0.1:8000${profile_image}`
+    ? `https://nexobackend-7pil.onrender.com${profile_image}`
     : "https://via.placeholder.com/150";
 
   return (
@@ -43,7 +43,7 @@ const Post = ({ post, profile_image }) => {
       {/* Post Image */}
       <div className="mt-3">
         <img
-          src={post.image ? `http://localhost:8000${post.image}` : "https://via.placeholder.com/150"}
+          src={post.image ? `https://nexobackend-7pil.onrender.com/${post.image}` : "https://via.placeholder.com/150"}
           alt="Post"
           className="w-full rounded-xl object-cover max-h-[500px]"
         />

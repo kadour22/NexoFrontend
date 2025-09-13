@@ -33,14 +33,14 @@ const Profile = () => {
       {/* Banner */}
       <div className="relative w-full h-40 sm:h-56 md:h-64">
         <img
-           src={profile?.profile_cover ? `http://localhost:8000${profile.profile_cover}` : "https://via.placeholder.com/150"}
+           src={profile?.profile_cover ? `https://nexobackend-7pil.onrender.com${profile.profile_cover}` : "https://via.placeholder.com/150"}
           alt="Banner"
           className="w-full h-full object-cover"
         />
         {/* Profile Image */}
         <div className="absolute -bottom-14 left-4 sm:left-8">
           <img
-        src={profile?.profile_image ? `http://localhost:8000${profile.profile_image}` : "https://via.placeholder.com/150"}
+        src={profile?.profile_image ? `https://nexobackend-7pil.onrender.com${profile.profile_image}` : "https://via.placeholder.com/150"}
         alt="Profile"
         className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-black object-cover"
 />
