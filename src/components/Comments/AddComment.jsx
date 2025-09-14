@@ -33,6 +33,7 @@ const AddComment = () => {
           <br />
          <button
           type="submit"
+          onClick={handleSubmit}
           disabled={loading}
           className="w-full p-2 rounded bg-blue-600 hover:bg-blue-700 transition"
         >
