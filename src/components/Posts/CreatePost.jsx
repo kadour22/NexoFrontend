@@ -1,67 +1,72 @@
-import React, { useState } from "react";
-import axiosInstance from "../../API/api"; 
-import {useNavigate} from 'react-router-dom'
-const CreatePost = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [image, setImage] = useState(null);
-  const navigate = useNavigate()
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+import React from "react";
+import { useForm } from "react-hook-form";
+import axiosInstance from "../../API/api";
+import { useNavigate } from "react-router-dom";
 
-    // Build FormData
+const CreatePost = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isSubmitting },
+  } = useForm();
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
     const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    if (image) {
-      formData.append("image", image); // <-- Important
-    }
+    Object.entries(data).forEach(([key, value]) => {
+      if (value instanceof FileList) {
+        if (value.length > 0) formData.append(key, value[0]); // file input
+      } else {
+        formData.append(key, value);
+      }
+    });
 
     try {
-      const response = await axiosInstance.post("Post/create/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data", // 👈 Required
-        },
+      await axiosInstance.post("Post/create/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
-      console.log("Post created:", response.data);
-      navigate("/posts/posts-list/")
+      reset();
+      navigate("/posts/posts-list/");
     } catch (error) {
-      console.error("Error creating post:", error);
+      alert("❌ Failed to create post. Try again.");
+      console.error(error);
     }
   };
 
   return (
     <div className="w-full h-full max-w-2xl mx-auto bg-black text-white border-b border-gray-800 px-4 py-6">
-
-    <form className="space-y-4">
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="border p-2 w-full"
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+        <input
+          type="text"
+          placeholder="Title"
+          {...register("title", { required: true })}
+          className="border p-2 w-full"
         />
-      <textarea
-        placeholder="Content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        className="border p-2 w-full"
-      />
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => setImage(e.target.files[0])}
-        className="block"
+        <textarea
+          placeholder="Content"
+          {...register("content", { required: true })}
+          className="border p-2 w-full"
         />
-      <button onClick={handleSubmit}
-        type="submit"
-        className="px-4 py-2 bg-blue-600 text-white rounded"
-      >
-        Create Post
-      </button>
-    </form>
-</div>
+        <input
+          type="file"
+          accept="image/*"
+          {...register("image")}
+          className="block"
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`px-4 py-2 rounded ${
+            isSubmitting ? "bg-gray-500 cursor-not-allowed" : "bg-blue-600"
+          }`}
+        >
+          {isSubmitting ? "Creating..." : "Create Post"}
+        </button>
+      </form>
+    </div>
   );
 };
 
-export default CreatePost;
+export default React.memo(CreatePost);

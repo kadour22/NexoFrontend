@@ -57,8 +57,10 @@ const Profile = () => {
         <p className="text-gray-400 text-sm sm:text-base">Bio : {profile?.bio}</p>
       </div>
         <div>
-            <Link to="/posts/create/" className="text-blue-500 text-sm sm:text-base px-4 sm:px-8 mt-2 inline-block">
-            <BadgePlus className="inline-block ml-2" size={16}/>
+            <Link to="/posts/create/" className="w-full px-6 py-2 rounded-lg text-white font-semibold 
+          bg-gradient-to-r from-purple-500 to-pink-500 
+          hover:from-purple-600 hover:to-pink-600 
+          focus:outline-none focus:ring-2 focus:ring-pink-300">
               Add Post
             </Link>
         </div>
