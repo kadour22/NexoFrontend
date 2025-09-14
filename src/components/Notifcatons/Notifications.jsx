@@ -23,7 +23,7 @@ const Notification = () => {
       .catch((err) => console.error("❌ Error fetching notifications:", err));
 
     const socket = new WebSocket(
-      `ws://nexobackend-7pil.onrender.com/ws/notifications/?token=${token}`
+      `ws://127.0.0.1:8000/ws/notifications/?token=${token}`
     );
 
     socket.onopen = () => console.log("✅ WebSocket Connected");
