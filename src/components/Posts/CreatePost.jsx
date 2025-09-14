@@ -23,7 +23,6 @@ const CreatePost = () => {
           "Content-Type": "multipart/form-data", // 👈 Required
         },
       });
-      navigate('/posts/posts-list/');
       console.log("Post created:", response.data);
     } catch (error) {
       console.error("Error creating post:", error);
@@ -33,7 +32,7 @@ const CreatePost = () => {
   return (
     <div className="w-full h-full max-w-2xl mx-auto bg-black text-white border-b border-gray-800 px-4 py-6">
 
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form className="space-y-4">
       <input
         type="text"
         placeholder="Title"
@@ -53,7 +52,7 @@ const CreatePost = () => {
         onChange={(e) => setImage(e.target.files[0])}
         className="block"
         />
-      <button
+      <button onClick={handleSubmit}
         type="submit"
         className="px-4 py-2 bg-blue-600 text-white rounded"
       >

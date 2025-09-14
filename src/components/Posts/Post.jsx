@@ -43,7 +43,7 @@ const Post = ({ post, profile_image }) => {
       {/* Post Image */}
       <div className="mt-3">
         <img
-          src={post.image ? `https://nexobackend-7pil.onrender.com/${post.image}` : "https://via.placeholder.com/150"}
+          src={post.image ? `https://nexobackend-7pil.onrender.com${post.image}` : "https://via.placeholder.com/150"}
           alt="Post"
           className="w-full rounded-xl object-cover max-h-[500px]"
         />
