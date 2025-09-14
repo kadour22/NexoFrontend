@@ -24,6 +24,7 @@ const CreatePost = () => {
         },
       });
       console.log("Post created:", response.data);
+      navigate("/posts/posts-list/")
     } catch (error) {
       console.error("Error creating post:", error);
     }
