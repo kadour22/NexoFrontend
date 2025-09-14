@@ -1,7 +1,19 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import axiosInstance from '../../API/api'
+
 const AddComment = () => {
-    const [loading, setLoading] = useState(false);
+  const[content,setContent] = useState("")
+  
+  const handleSubmit = async (e) => {
+    try{
+      const response = await axiosInstance.post("Comment/comments/create/",{content}) ; 
+      console.log(response.data)
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  const [loading, setLoading] = useState(false);
   return (
     <div className="max-w-md mx-auto p-4 bg-black text-white rounded-xl shadow-lg">
          <div>
@@ -11,8 +23,8 @@ const AddComment = () => {
             <input
               type="text"
               id="username"
-            //   value={username}
-            //   onChange={(e) => setUsername(e.target.value)}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
               placeholder="Comment"
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
