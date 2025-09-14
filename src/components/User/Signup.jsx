@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
   const [password, setPassword] = useState("");
     const [error, setError] = useState("");
    const handleSubmit = async (e) => {
@@ -15,8 +15,8 @@ const Signup = () => {
       username,
       email,
       password,
-      firstName,
-      lastName,
+      first_name,
+      last_name,
     };
     try {
       const response = await axios.post(
