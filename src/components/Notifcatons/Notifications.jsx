@@ -13,7 +13,7 @@ const Notification = () => {
     }
 
     axios
-      .get("http://127.0.0.1:8000/Notifications/notifications/", {
+      .get("https://nexobackend-7pil.onrender.com/Notifications/notifications/", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -23,7 +23,7 @@ const Notification = () => {
       .catch((err) => console.error("❌ Error fetching notifications:", err));
 
     const socket = new WebSocket(
-      `ws://127.0.0.1:8000/ws/notifications/?token=${token}`
+      `ws://nexobackend-7pil.onrender.com/ws/notifications/?token=${token}`
     );
 
     socket.onopen = () => console.log("✅ WebSocket Connected");
