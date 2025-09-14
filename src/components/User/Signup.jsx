@@ -80,7 +80,7 @@ const Signup = () => {
               <input
                 type="text"
                 id="first-name"
-                value={firstName}
+                value={first_name}
                 onChange={(e) => setFirstName(e.target.value)}
                 placeholder="first name"
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -96,7 +96,7 @@ const Signup = () => {
               <input
                 type="text"
                 id="first-last-name"
-                value={lastName}
+                value={last_name}
                 onChange={(e) => setLastName(e.target.value)}
                 placeholder="last name"
                 className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
