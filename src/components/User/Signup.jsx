@@ -1,15 +1,16 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import UpdateProfile from '../Profile/UpdateProfile';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-   const handleSubmit = async (e) => {
+  const [error, setError] = useState("");
+  const navigate = useNavigate()
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       username,
