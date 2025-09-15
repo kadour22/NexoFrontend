@@ -23,7 +23,7 @@ const PostDetail = () => {
 
     <h2 style={{color:"white"}}>{post?.title}</h2>
     <img src={post?.image} alt="image" />
-    <AddComment/>
+    <AddComment id={post?.id} />
    </div>
   )
 }

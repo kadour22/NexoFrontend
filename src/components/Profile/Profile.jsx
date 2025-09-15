@@ -5,8 +5,6 @@ import axiosInstance from '../../API/api';
 import { Link } from 'react-router-dom';
 import Post from '../Posts/Post';
 
-import img from '../../assets/a.jpg'
-
 const Profile = () => {
       const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -43,7 +41,7 @@ const Profile = () => {
         {/* Profile Image */}
         <div className="absolute -bottom-14 left-4 sm:left-8">
           <img
-        src={profile?.profile_image ? `https://nexobackend-7pil.onrender.com${profile.profile_image}` : {img}}
+        src={profile?.profile_image ? `https://nexobackend-7pil.onrender.com${profile.profile_image}` : "https://via.placeholder.com/150"}
         alt="Profile"
         className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-black object-cover"
 />
