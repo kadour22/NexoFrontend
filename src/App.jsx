@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './App.css'
 
-import Header from './components/Header/Herader'
+import Header from './components/Header/Header'
 
 import PostList from './components/Posts/PostList'
 import LikePost from './components/Posts/LikePost'
@@ -9,13 +9,14 @@ import PostDetail from './components/Posts/PostDetail'
 
 import Login from './components/User/Login' 
 import Signup from './components/User/Signup' 
-import ChangePassword from './components/Settings/ChangePassword'
+
+import RoomList from './components/Messages/RoomList'
+import ChatRoom from './components/Messages/ChatRoom'
 
 import Profile from './components/Profile/Profile'
 import UpdateProfile from './components/Profile/UpdateProfile'
 import Settings from './components/Settings/Settings'
-import {BrowserRouter as Router, Route, Routes , useNavigate
-} from 'react-router-dom' 
+import {BrowserRouter as Router, Route, Routes , useNavigate} from 'react-router-dom' 
 import CreatePost from './components/Posts/CreatePost'
 import Notification from './components/Notifcatons/Notifications'
 
@@ -39,6 +40,9 @@ const App = () => {
           <Route path="/posts/like_or_dislike/:id" element={<LikePost />} />
 
           <Route path="/notifications/" element={<Notification />} />
+
+          <Route path='/rooms' element={<RoomList/>} />
+          <Route path='/chat/:roomName' element={<ChatRoom/>} />
         </Routes>
     </Router>
     </div>
