@@ -40,7 +40,7 @@ const Header = () => {
             <House size={18} />
         </Link>
         {/* Messages Link */}
-        <Link to="/messages" className="text-sky-500 hover:text-sky-400 transition">
+        <Link to="/rooms" className="text-sky-500 hover:text-sky-400 transition">
             <Mail size={18} />
         </Link>
         {/* Notifications Link */}
