@@ -106,7 +106,6 @@ export default function Login() {
         </p>
       </div>
       {error && <div className="text-red-500 text-center mt-4">{error}</div>}
-      {loading && <div className="text-center mt-4">Loading...</div>}
     </div>
   );
 }
