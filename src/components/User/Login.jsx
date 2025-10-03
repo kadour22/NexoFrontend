@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate()
 
   useEffect(()=>{
@@ -104,6 +105,8 @@ export default function Login() {
           </Link>
         </p>
       </div>
+      {error && <div className="text-red-500 text-center mt-4">{error}</div>}
+      {loading && <div className="text-center mt-4">Loading...</div>}
     </div>
   );
 }

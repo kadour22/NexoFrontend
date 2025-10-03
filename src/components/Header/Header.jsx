@@ -10,6 +10,7 @@ const Header = () => {
     {token ? (
         <div className="flex justify-between items-center px-4 py-3 border-b border-gray-800">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 180" width="120" height="50">
+            {/* <div className="flex gap-4"> */}
             <defs>
                 <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stop-color="#4F8EF7"/>

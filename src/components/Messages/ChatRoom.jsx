@@ -1,95 +1,53 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axiosInstance from "../../API/api";
+import { useParams } from "react-router-dom";
 
 const ChatRoom = () => {
-  const { roomName } = useParams();
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const ws = useRef(null);
-  const messagesEndRef = useRef(null);
+  const [RoomMessages, setRoomMessages] = useState([]);
+  const { id } = useParams();
 
-  // Scroll to bottom helper
-  const scrollToBottom = () =>
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-
-  // Fetch previous messages
   useEffect(() => {
-    const fetchMessages = async () => {
+    const AllRoomMessages = async () => {
       try {
-        const res = await axiosInstance.get(`/Messages/${roomName}`);
-        const mappedMessages = res.data.messages.map((msg) => ({
-          username: msg.user, // adjust if backend key differs
-          message: msg.content,
-        }));
-        setMessages(mappedMessages);
-        scrollToBottom();
-      } catch (err) {
-        console.error("Error fetching messages:", err);
+        const response = await axiosInstance.get(`Messages/rooms/${id}`);
+        setRoomMessages(response.data);
+        console.log(response.data.room.messages);
+      } catch (error) {
+        console.log(error);
       }
     };
-    fetchMessages();
-  }, [roomName]);
-
-  // Setup WebSocket
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    const socket = new WebSocket(
-      `wss://nexobackend-7pil.onrender.com/ws/chat/${roomName}/?token=${token}`
-    );
-    ws.current = socket;
-
-    socket.onopen = () => console.log("WebSocket connected");
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      setMessages((prev) => [...prev, data]);
-      scrollToBottom();
-    };
-    socket.onerror = (err) => console.error("WebSocket error:", err);
-    socket.onclose = () => console.log("WebSocket closed");
-
-    return () => {
-      socket.close();
-    };
-  }, [roomName]);
-
-  const sendMessage = () => {
-    if (
-      !newMessage.trim() ||
-      !ws.current ||
-      ws.current.readyState !== WebSocket.OPEN
-    )
-      return;
-    ws.current.send(JSON.stringify({ message: newMessage }));
-    setNewMessage("");
-  };
+    AllRoomMessages();
+  }, [id]);
 
   return (
-    <div className="max-w-lg mx-auto bg-white rounded shadow p-4 flex flex-col h-[80vh]">
-      <h2 className="text-xl font-bold mb-4">Room: {roomName}</h2>
-      <div className="flex-1 overflow-y-auto mb-4 space-y-2">
-        {messages.map((msg, idx) => (
-          <div key={idx} className="p-2 rounded bg-gray-100">
-            <strong>{msg.username}: </strong> {msg.message}
+    <div className="flex flex-col items-center min-h-screen">
+      {/* Room name */}
+      <h3 className="text-2xl font-bold text-blue-400 mb-6 text-center">
+        {RoomMessages?.room?.name}
+      </h3>
+
+      {/* Messages */}
+      <div className="w-full max-w-2xl space-y-4">
+        {RoomMessages?.room?.messages?.map((msg, index) => (
+          <div
+            key={index}
+            className="w-full px-6 py-3 rounded-lg text-white shadow-md
+                       bg-gradient-to-r from-purple-500 to-pink-500
+                       hover:from-purple-600 hover:to-pink-600
+                       transition duration-200"
+          >
+            {/* Username */}
+            <strong className="block text-lg">Author : {msg.user.username}</strong>
+
+            {/* Message Content */}
+            <p className="mt-1 text-base">message : {msg.content}</p>
+
+            {/* Timestamp */}
+            <small className="block text-right text-xs opacity-80 mt-2">
+              posted at : {msg.timestamp}
+            </small>
           </div>
         ))}
-        <div ref={messagesEndRef} />
-      </div>
-      <div className="flex gap-2">
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          className="flex-1 p-2 border rounded"
-          placeholder="Type your message..."
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-        />
-        <button
-          onClick={sendMessage}
-          className="bg-blue-500 text-white px-4 rounded hover:bg-blue-600"
-        >
-          Send
-        </button>
       </div>
     </div>
   );

@@ -16,9 +16,10 @@ import ChatRoom from './components/Messages/ChatRoom'
 import Profile from './components/Profile/Profile'
 import UpdateProfile from './components/Profile/UpdateProfile'
 import Settings from './components/Settings/Settings'
-import {BrowserRouter as Router, Route, Routes , useNavigate} from 'react-router-dom' 
 import CreatePost from './components/Posts/CreatePost'
 import Notification from './components/Notifcatons/Notifications'
+
+import {BrowserRouter as Router, Route, Routes , useNavigate} from 'react-router-dom' 
 
 const App = () => {
 
@@ -42,7 +43,7 @@ const App = () => {
           <Route path="/notifications/" element={<Notification />} />
 
           <Route path='/rooms' element={<RoomList/>} />
-          <Route path='/chat/:roomName' element={<ChatRoom/>} />
+          <Route path='/rooms/room/:id' element={<ChatRoom/>} />
         </Routes>
     </Router>
     </div>
