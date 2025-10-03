@@ -104,8 +104,8 @@ export default function Login() {
             Sign up
           </Link>
         </p>
-      </div>
       {error && <div className="text-red-500 text-center mt-4">{error}</div>}
+      </div>
     </div>
   );
 }
