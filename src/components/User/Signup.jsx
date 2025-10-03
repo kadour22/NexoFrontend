@@ -138,6 +138,7 @@ const Signup = () => {
             Login
           </Link>
         </p>
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
       </div>
     </div>
     </>
