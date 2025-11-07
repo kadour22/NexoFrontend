@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import axiosInstance from '../../API/api'
 import { useParams } from 'react-router-dom'
 
-const AddComment = () => {
+const AddComment = ({id}) => {
   const[content,setContent] = useState("")
-  const {id} = useParams()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const response = await axiosInstance.post(`Comment/comments/create/${id}/`,{content}) ; 
+      const response = await axiosInstance.post("Comment/comments/create/",{post:id,content:content}) ; 
       console.log(response.data)
     }catch(error){
       console.log(error)

@@ -3,6 +3,7 @@ import axiosInstance from '../../API/api'
 import { useParams } from 'react-router-dom'
 import Post from './Post'
 import AddComment from '../Comments/AddComment'
+import CommentsList from '../Comments/CommentsList'
 // posts/post/
 const PostDetail = () => {
   const [post,setPost] = useState(null)
@@ -23,6 +24,7 @@ const PostDetail = () => {
 
     <h2 style={{color:"white"}}>{post?.title}</h2>
     <img src={post?.image} alt="image" />
+    {/* {post?.comments.map((cmntr) =>{console.log("f")})} */}
     <AddComment id={post?.id} />
    </div>
   )
